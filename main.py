@@ -6,7 +6,7 @@ import subprocess
 import csv
 import os
 
-RUNTIME = 10  # runtime of each cycle in seconds, must be multiple of 10
+RUNTIME = 600  # runtime of each cycle in seconds, must be multiple of 10
 
 if not RUNTIME % 10 == 0:
     raise ValueError("Runtime must be a multiple of 10!")
