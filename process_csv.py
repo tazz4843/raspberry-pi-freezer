@@ -14,7 +14,7 @@ print(x)
 
 fig = plt.figure()
 ax = fig.add_subplot(1, 1, 1)
-plt.title("ARM Core Temperature and Speed vs Time")
+plt.title("Core Temperature and Speed vs Time")
 ax.plot(x, y0, "r")
 ax.plot(x, y1, "b")
 loc = plticker.MaxNLocator(nbins=5)
