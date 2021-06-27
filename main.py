@@ -14,8 +14,10 @@ if not RUNTIME % 10 == 0:
 values = []
 
 def get_cpu_temp():
-    raw = psutil.sensors_temperatures()['k10temp']
-    return raw[1].current
+    raw = psutil.sensors_temperatures()
+    tl = list(raw.items())
+    temp = tl[0][1][0].current
+    return temp
 
 def do_logging():
     for _ in range(RUNTIME//10):
@@ -26,24 +28,24 @@ def do_logging():
         values.append([ctime, temperature, cpu_speed])
         sleep(10)
 
+try:
+    print("sleeping to decrease CPU speed after setup")
+    sleep(10)
 
-print("sleeping to decrease CPU speed after setup")
-sleep(10)
-
-print("logging idle")
-do_logging()
+    print("logging idle")
+    do_logging()
 
 
-stress = subprocess.Popen(["stress", "-c", "4", "-m", "1", "-t", str(RUNTIME)])
+    stress = subprocess.Popen(["stress", "-c", "4", "-m", "1", "-t", str(RUNTIME)])
 
-print("logging stress")
-do_logging()
+    print("logging stress")
+    do_logging()
 
-stress.poll()
+    stress.poll()
 
-print("logging cooldown")
-do_logging()
-
-with open("output.csv", "w") as f:
-    writer = csv.writer(f)
-    writer.writerows(values)
+    print("logging cooldown")
+    do_logging()
+except KeyboardInterrupt:
+    with open("output.csv", "w") as f:
+        writer = csv.writer(f)
+        writer.writerows(values)

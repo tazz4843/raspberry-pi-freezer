@@ -9,7 +9,7 @@ with open("output.csv") as f:
 
 x = [i[0] for i in data]
 y0 = [float(i[1]) for i in data]
-y1 = [int(i[2])/100 for i in data]
+y1 = [float(i[2])/100 for i in data]
 print(x)
 
 fig = plt.figure()
