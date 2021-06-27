@@ -1,23 +1,25 @@
 # coding=utf-8
 # https://projects.raspberrypi.org/en/projects/temperature-log/
-from gpiozero import CPUTemperature
 from time import time, sleep
 import psutil
 import subprocess
 import csv
+import os
 
 RUNTIME = 600  # runtime of each cycle in seconds, must be multiple of 10
 
 if not RUNTIME % 10 == 0:
     raise ValueError("Runtime must be a multiple of 10!")
 
-temp = CPUTemperature()
 values = []
 
+def get_cpu_temp():
+    raw = psutil.sensors_temperatures()['k10temp']
+    return raw[1].current
 
 def do_logging():
     for _ in range(RUNTIME//10):
-        temperature = temp.temperature
+        temperature = get_cpu_temp()
         cpu_speed = psutil.cpu_freq()[0]
         ctime = round(time())
         print(f"{ctime}: {cpu_speed}MHz: {temperature} deg C")
