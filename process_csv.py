@@ -9,12 +9,12 @@ with open("output.csv") as f:
 
 x = [i[0] for i in data]
 y0 = [float(i[1]) for i in data]
-y1 = [int(i[2])/100 for i in data]
+y1 = [float(i[2])/100 for i in data]
 print(x)
 
 fig = plt.figure()
 ax = fig.add_subplot(1, 1, 1)
-plt.title("ARM Core Temperature and Speed vs Time")
+plt.title("Core Temperature and Speed vs Time")
 ax.plot(x, y0, "r")
 ax.plot(x, y1, "b")
 loc = plticker.MaxNLocator(nbins=5)
