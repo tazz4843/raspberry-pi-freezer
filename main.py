@@ -4,7 +4,6 @@ from time import time, sleep
 import psutil
 import subprocess
 import csv
-import os
 
 RUNTIME = 600  # runtime of each cycle in seconds, must be multiple of 10
 
